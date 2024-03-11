@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: nginxns
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+          env:
+            - name: AUTH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nginx-auth
+                  key: username
+            - name: AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nginx-auth
+                  key: password
+      volumes:
+        - name: html-volume
+          persistentVolumeClaim:
+            claimName: nfs-test-claim

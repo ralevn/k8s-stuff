@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: centos
+  name: centos
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: centos
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: centos
+    spec:
+      containers:
+      - image: quay.io/centos/centos:8
+        name: centos
+        command: ["/bin/sleep", "3650d"]
+        resources: {}
+status: {}

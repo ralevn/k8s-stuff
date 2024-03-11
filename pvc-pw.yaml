@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: portworx-io-priority-high
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256M 
