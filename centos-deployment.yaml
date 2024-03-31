@@ -17,9 +17,22 @@ spec:
       labels:
         app: centos
     spec:
+      initContainers:                                 # Added initContainers section
+      - name: create-data-dir                         # Name of the init container
+        image: centos                                 # Use CentOS image for simplicity
+        command: ["/bin/sh", "-c", "mkdir -p /data"]  # Command to create directory
+        volumeMounts:
+        - name: nfs-volume
+          mountPath: /data
       containers:
       - image: quay.io/centos/centos:8
         name: centos
         command: ["/bin/sleep", "3650d"]
         resources: {}
+        - name: nfs-volume
+          mountPath: /data
+      volumes:
+      - name: nfs-volume
+        persistentVolumeClaim:
+          claimName: nfs-pvc                          # Reference to the PVC
 status: {}
