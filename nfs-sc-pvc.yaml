@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-storage  # Reference to the StorageClass
+  resources:
+    requests:
+      storage: 10Gi  # Requested storage size, should match the PV size
