@@ -1,0 +1,15 @@
+2231	 cp -p /etc/kubernetes/pki/ca.{crt.key} .
+2232	 cp -p /etc/kubernetes/pki/ca.{crt,key} .
+2233	 ls -ltr
+2234	 openssl x509 -req -in nikira-k8s.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out nikira-k8s.crt -days 3650
+2235	 kubectl config set-cluster kubernetes --server=https://192.168.15.5:6443 --certificate-authority=ca.crt --kubeconfig=nikira-k8s-config --embed-certs
+2236	 ls -latr
+2237	 ls -latr nikira-k8s*
+2238	 cat nikira-k8s-config
+2239	 kubectl config set-credentials nikira --client-certificate=nikira-k8s-access.crt --client-key=nikira-k8s.key --embed-certs --kubeconfig=nikira-k8s-config
+2240	 kubectl config set-credentials nikira --client-certificate=nikira-k8s.crt --client-key=nikira-k8s.key --embed-certs --kubeconfig=nikira-k8s-config
+2241	 cat nikira-k8s-config
+2242	 kubectl config
+2243	 kubectl config get-contexts
+2244	 kubectl config get-users
+2245	 kubectl config get-clusters
